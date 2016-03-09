@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace GameOfLife
 {
@@ -7,14 +9,16 @@ namespace GameOfLife
     {
         private static void Main(string[] args)
         {
-            var game = new GameOfLife(30, 30);
-            game.DisplayWorld();
+            if (args == null) throw new ArgumentNullException("args");
+            var newgame = new GameOfLife(10,10);
+            newgame.DisplayWorld();
             while (true)
             {
                 if (Console.ReadKey() == null) continue;
-                game.NextAge();
-                game.DisplayWorld();
+                newgame.NextAge();
+                newgame.DisplayWorld();
             }
+       
         }
     }
 
@@ -32,6 +36,36 @@ namespace GameOfLife
             _horizontal = x;
             _vertical = y;
             PopulateWorld();
+        }
+
+        public bool IsDeadOrAlive(int row, int column)
+        {
+            if((row > 0 && column > 0) && (row < _vertical &&column < _horizontal ))
+            return _world[row][column];
+            else
+            {
+                throw new ArgumentException("Bledny zakres");
+            }
+        }
+        public GameOfLife(string fileName)
+        {
+            _world = new List<List<bool>>();
+
+            string directory = System.IO.Directory.GetCurrentDirectory();
+            FileInfo f = new FileInfo(directory+ "\\" + fileName);
+            string[] lines = System.IO.File.ReadAllLines(directory + "\\" + fileName);
+            lines = lines.Where(x => !string.IsNullOrEmpty(x)).ToArray();
+            _vertical = lines.Length;
+            _horizontal = ((int)f.Length-lines.Length)/lines.Length;
+           
+            for (var rows = 0; rows < _vertical; ++rows)
+            {
+                _world.Add(new List<bool>());
+                for (var columns = 0; columns < _horizontal; ++columns)
+                {
+                    _world[rows].Add(string.Equals(lines[rows][columns], '1'));
+                }
+            }
         }
 
         public void DisplayWorld()
