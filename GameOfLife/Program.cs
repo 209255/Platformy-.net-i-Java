@@ -8,8 +8,14 @@ namespace GameOfLife
         {
             try
             {
-                GameOfLife newgame = new GameOfLife(-1, 10);
+                int vertical, horizontal;
+                Console.WriteLine("Wprowadź szerokość świata");
+                horizontal = int.Parse(Console.ReadLine());
+                Console.WriteLine("Wprowadź długość świata");
+                vertical = int.Parse(Console.ReadLine());
+                GameOfLife newgame = new GameOfLife(horizontal, vertical);
                 newgame.DisplayWorld();
+
                 while (true)
                 {
                     if (Console.ReadKey() == null) continue;
@@ -19,8 +25,10 @@ namespace GameOfLife
             }
             catch (ArgumentException e)
             {
-                Console.Write(e.Message);
+                Console.WriteLine(e.Message);
+                Console.WriteLine("Aplikacja zostanie zakończona");
+                Console.Read();
             }
-       }
+        }
     }
 }
