@@ -5,22 +5,6 @@ using System.Linq;
 
 namespace GameOfLife
 {
-    internal class Program
-    {
-        private static void Main(string[] args)
-        {
-            if (args == null) throw new ArgumentNullException("args");
-            var newgame = new GameOfLife(10,10);
-            newgame.DisplayWorld();
-            while (true)
-            {
-                if (Console.ReadKey() == null) continue;
-                newgame.NextAge();
-                newgame.DisplayWorld();
-            }
-       
-        }
-    }
 
     public class GameOfLife
     {
@@ -47,13 +31,14 @@ namespace GameOfLife
                 throw new ArgumentException("Bledny zakres");
             }
         }
+
         public GameOfLife(string fileName)
         {
             _world = new List<List<bool>>();
 
-            string directory = System.IO.Directory.GetCurrentDirectory();
+            string directory = Directory.GetCurrentDirectory();
             FileInfo f = new FileInfo(directory+ "\\" + fileName);
-            string[] lines = System.IO.File.ReadAllLines(directory + "\\" + fileName);
+            string[] lines = File.ReadAllLines(directory + "\\" + fileName);
             lines = lines.Where(x => !string.IsNullOrEmpty(x)).ToArray();
             _vertical = lines.Length;
             _horizontal = ((int)f.Length-lines.Length)/lines.Length;
@@ -63,7 +48,7 @@ namespace GameOfLife
                 _world.Add(new List<bool>());
                 for (var columns = 0; columns < _horizontal; ++columns)
                 {
-                    _world[rows].Add(string.Equals(lines[rows][columns], '1'));
+                    _world[rows].Add(Equals(lines[rows][columns], '1'));
                 }
             }
         }
