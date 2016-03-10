@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace GameOfLifeTests
 {
@@ -8,57 +9,111 @@ namespace GameOfLifeTests
         [TestMethod]
         public void ResurectionCausedThreeNeighbor()
         {
-            var game = new GameOfLife.GameOfLife("Resurection.txt");
-            game.NextAge();
-            Assert.AreEqual(game.IsDeadOrAlive(1, 1), true);
+            try
+            {
+                var game = new GameOfLife.GameOfLife("Resurection.txt");
+                game.NextAge();
+                Assert.AreEqual(game.IsDeadOrAlive(1, 1), true);
+            }
+            catch (ArgumentException e)
+            {
+                Console.Write(e.Message);
+            }
+            
         }
 
         [TestMethod]
         public void DeathCausedMoreThanThreeNeighbor()
         {
-            var game = new GameOfLife.GameOfLife("Death4Nei.txt");
-            game.NextAge();
-            Assert.AreEqual(game.IsDeadOrAlive(1, 1), false);
+            try
+            {
+                var game = new GameOfLife.GameOfLife("Death4Nei.txt");
+                game.NextAge();
+                Assert.AreEqual(game.IsDeadOrAlive(1, 1), false);
+            }
+            catch (ArgumentException e)
+            {
+                Console.Write(e.Message);
+            }
+            
         }
 
         [TestMethod]
         public void DeathCausedLessThanTwoNeighbor()
         {
-            var game = new GameOfLife.GameOfLife("Death1Nei.txt");
-            game.NextAge();
-            Assert.AreEqual(game.IsDeadOrAlive(1, 1), false);
+            try
+            {
+                var game = new GameOfLife.GameOfLife("Death1Nei.txt");
+                game.NextAge();
+                Assert.AreEqual(game.IsDeadOrAlive(1, 1), false);
+            }
+            catch (ArgumentException e)
+            {
+                Console.Write(e.Message);
+            }
         }
 
         [TestMethod]
         public void StayedAliveCausedThreeNeighbor()
         {
-            var game = new GameOfLife.GameOfLife("Alive3Nei.txt");
-            game.NextAge();
-            Assert.AreEqual(game.IsDeadOrAlive(1, 1), true);
+            try
+            {
+                var game = new GameOfLife.GameOfLife("Alive3Nei.txt");
+                game.NextAge();
+                Assert.AreEqual(game.IsDeadOrAlive(1, 1), true);
+            }
+            catch (ArgumentException e)
+            {
+                 Console.Write(e.Message);
+            }
+            
         }
 
         [TestMethod]
         public void StayedAliveCausedTwoNeighbor()
         {
-            var game = new GameOfLife.GameOfLife("Alive2Nei.txt");
-            game.NextAge();
-            Assert.AreEqual(game.IsDeadOrAlive(1, 1), true);
+            try
+            {
+                var game = new GameOfLife.GameOfLife("Alive2Nei.txt");
+                game.NextAge();
+                Assert.AreEqual(game.IsDeadOrAlive(1, 1), true);
+            }
+            catch (ArgumentException e)
+            {
+                Console.Write(e.Message);
+            }
+            
         }
 
         [TestMethod]
         public void StayedDeadCausedMoreThanThreeNeighbor()
         {
-            var game = new GameOfLife.GameOfLife("Death5Nei.txt");
-            game.NextAge();
-            Assert.AreEqual(game.IsDeadOrAlive(1, 1), false);
+            try
+            {
+                var game = new GameOfLife.GameOfLife("Death5Nei.txt");
+                game.NextAge();
+                Assert.AreEqual(game.IsDeadOrAlive(1, 1), false);  
+            }
+            catch (ArgumentException e)
+            {
+                Console.Write(e.Message);
+            }
         }
 
         [TestMethod]
         public void StayedDeadCausedLessThanThreeNeighbor()
         {
-            var game = new GameOfLife.GameOfLife("Death2Nei.txt");
-            game.NextAge();
-            Assert.AreEqual(game.IsDeadOrAlive(1, 1), false);
+            try
+            {
+                var game = new GameOfLife.GameOfLife("Death2Nei.txt");
+                game.NextAge();
+                Assert.AreEqual(game.IsDeadOrAlive(1, 1), false);
+            }
+            catch (ArgumentException e)
+            {
+                Console.Write(e.Message);
+            }
+            
         }
     }
 }
